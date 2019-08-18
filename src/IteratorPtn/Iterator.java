@@ -5,4 +5,6 @@ public interface Iterator<T> {
 	public boolean hasNext();
 	public T next(); 
 	//public Object next(); <- 책은 리턴타입을 유연하게 정의하기위해 Object를 이용했지만 나의 경우 제네릭타입을 이용함
+	public boolean hasPrevious();
+	public T previous();
 }

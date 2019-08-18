@@ -12,5 +12,14 @@ public class IteratorEx {
 		while(iterator.hasNext()) {
 			System.out.println(iterator.next().getName());
 		}
+		
+		while(iterator.hasPrevious()) {
+			System.out.println(iterator.previous().getName());
+		}
+		
+		ReverseIterator<Book> revIterator = new BookShelfReverseIterator(bookshelf);
+		while(revIterator.hasPrevious()) {
+			System.out.println(revIterator.previous().getName());
+		}
 	}
 }
