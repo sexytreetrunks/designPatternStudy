@@ -1,27 +1,31 @@
 package IteratorPtn;
 
+import java.util.Vector;
+
 public class BookShelf implements Aggregate{
-	private Book[] books;
+	private Vector<Book> books;
+	//private Book[] books;
 	private int last = 0;
 	
 	public BookShelf() {
-		books = new Book[10];
+		books = new Vector<>();
 	}
 	
 	//책에서 구현한 생성자. 임의로크기를 지정하는것보다 이렇게 생성시 크기를 지정해주는게 좀더 유연쓰
 	public BookShelf(int maxsize) {
-		books = new Book[maxsize];
+		books = new Vector<>(maxsize);
 	}
 
 	public Book getBookAt(int idx) {
 		if(idx <0 || idx > getLength())
 			return null;
 		else
-			return books[idx];
+			return books.elementAt(idx);
 	}
 	
 	public void appendBook(Book book) {
-		books[last++] = book;
+		books.add(book);
+		last++;
 	}
 	
 	public int getLength() {
