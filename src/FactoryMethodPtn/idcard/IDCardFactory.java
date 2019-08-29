@@ -1,13 +1,16 @@
 package FactoryMethodPtn.idcard;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import FactoryMethodPtn.framework.Factory;
 import FactoryMethodPtn.framework.Product;
 
 public class IDCardFactory extends Factory{
-    private List<String> owners = new ArrayList<String>();
+    private Map<Integer, String> map = new HashMap<>();//대응표를 만들란게 뭔뜻인지 모르겠음 
+    
     @Override
     protected Product createProduct(String owner) {
         return new IDCard(owner);
@@ -15,10 +18,12 @@ public class IDCardFactory extends Factory{
 
     @Override
     protected void registerProduct(Product product) {
-        owners.add(((IDCard)product).getOwner());
+        int key_idnum = ((IDCard)product).getIdNum();
+        String value_owner = ((IDCard)product).getOwner();
+        map.put(key_idnum, value_owner);
     }
 
     public List getOwners() {
-        return owners;
+        return new ArrayList<String>(map.values());
     }
 }
