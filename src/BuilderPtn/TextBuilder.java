@@ -7,20 +7,20 @@ public class TextBuilder extends Builder {
      * 따라서 기존에 만든 문자열메모리를 계속 사용하고 반환하는 형태인 StringBuilder나 StringBuffer를 사용하는게 좋음
      */
     @Override
-    public void makeTitle(String title) {
+    public void buildTitle(String title) {
         buffer.append("=================================\n");
         buffer.append('『' + title + "』\n");
         buffer.append("\n");
     }
 
     @Override
-    public void makeString(String str) {
+    public void buildString(String str) {
         buffer.append('▶' + str + "\n");
         buffer.append("\n");
     }
 
     @Override
-    public void makeItems(String[] items) {
+    public void buildItems(String[] items) {
         for (String item:items) {
             buffer.append("  ●" + item + "\n");
         }
@@ -28,7 +28,7 @@ public class TextBuilder extends Builder {
     }
 
     @Override
-    public void close() {
+    public void buildDone() {
         buffer.append("====================================");
     }
     
