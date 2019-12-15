@@ -15,3 +15,55 @@ templete method패턴과 builder패턴에서 추상적인 메소드를 이용하
 abstract factory패턴에서 새로운 구체적인 공장을 만드는건 간단함. 그냥 factory패키지의 인터페이스들을 구현하기만 하면됨. 또한 이를사용하는 client또한 수정할필요가없음  
 하지만 기존의 factory에 새로운 부품을 추가하는건 매우 어려움. 해당 부품에 대응되는 각 concreteProduct를 생성해야하기 때문임. 이는 이미 만들어진 concreteFactory가 많을수록 수정해야할 코드가 더 많아짐.  
 
+# 잠깐 샛길로 
+
+## private vs protected
+
+상위클래스에서 필드를 정의할때 하위클래스에서 편하게 사용하기위해 protected로 설정하는 경우가 있음. 근데 이건 못된습관임.   
+protected로 필드를 설정하게되면 하위클래스에서 필드에 직접 접근하게 되고 이는 상위클래스-하위클래스간 의존성을 강화함  
+따라서 번거롭게 엑세스용 메서드를 만들더라도 private으로 설정하는게 바람직함  
+
+## java에서 인스턴스를 만드는 방법
+1. new 생성자 이용해서 만들기  
+`Something obj = new Something();`  
+- 가장 일반적인 방법.
+
+2. clone 이용하기
+Prototype패턴에 나온 clone매소드를 이용하면 이미 존재하는 인스턴스를 이용하여 새로운 인스턴스를 만들수있음  
+
+```java
+class Something{
+
+    public Something createClone() {
+        Something obj = null;
+        try {
+            obj = (Something) this.clone();
+        } catch(ClassNotSupportedException e) {
+            // error handling
+        }
+        return obj;
+    }
+}
+```
+3. newInstance 이용하기
+java.lang.Class에 있는 newInstance 메소드를 이용하면 클래스명으로 인스턴스를 만들수있음  
+
+> 주의!)
+Class.newInstance() 는 java9 이상부턴 deprecated됨. 따라서 newInstace사용시 getDeclaredConstructor()를 이용해야함  
+
+```java
+try {
+    Something obj = Something.class.getDeclaredConstructor().newInstance();
+} catch (InstantiationException e1) {
+    // error handling
+} catch (IllegalAccessException e2) {
+    // error handling
+} catch (InvocationTargetException e3) {
+    // error handling
+}
+```
+
+기존의 newInstance()는 기본생성자만 가져올수있었음. 하지만 이보다 더 중요한 단점은 newInstance를 사용하는 코드에서 exception 체크를 우회하는 위험성을 갖고있다는거임. 
+즉 Class#newInstance 로 불러오는 생성자 내에서 exception이 발생할경우 이를 사용하는 코드는 이에대한 exception 체크 및 핸들링을 할수가 없음. 따라서 exception은 발생하지만 어떠한 exception도 나타나지않는 기이한 현상이 발생함. [여기 나온 답변에 자세히 설명되어있음](https://stackoverflow.com/questions/195321/why-is-class-newinstance-evil#answer-53014482)  
+
+Class#getDeclaredConstractor 를 이용해서 newInstance를 사용하게되면 위와같은 상황의 exception을 InvocationTargetException 을 통해 캐치할수있음. 따라서 java9 미만 버전이더라도 getDeclaredConstrctor를 이용해서 newInstance를 사용하는것을 권장함.  
