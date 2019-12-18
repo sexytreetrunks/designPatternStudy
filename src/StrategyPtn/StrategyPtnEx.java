@@ -1,10 +1,15 @@
 package StrategyPtn;
 
-import java.util.Random;
-
 public class StrategyPtnEx {
     public static void main(String[] args) {
-        Random randomSeed = new Random(System.currentTimeMillis());
+        String[] data = {
+              "Dumpty","Bowman","Carroll","Carrofl", "Elfland","Alice", "Elfland", "Zoxo"  
+        };
+        SortAndPrint sap = new SortAndPrint(data, new SelectionSorter());
+        sap.execute();
+        
+        
+        /*Random randomSeed = new Random(System.currentTimeMillis());
         int seed1 = randomSeed.nextInt(1000);
         int seed2 = randomSeed.nextInt(1000);
         
@@ -29,7 +34,7 @@ public class StrategyPtnEx {
         }
         System.out.println("Total result.........");
         System.out.println(player1.toString());
-        System.out.println(player2.toString());
+        System.out.println(player2.toString());*/
     }
 
 }
