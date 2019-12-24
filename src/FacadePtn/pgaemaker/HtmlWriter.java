@@ -3,7 +3,8 @@ package FacadePtn.pgaemaker;
 import java.io.IOException;
 import java.io.Writer;
 
-public class HtmlWriter {
+//HtmlWriter와 Database클래스는  default 클래스로 설정함으로써 PageMaker만 패키지 외부에서 사용할수 있도록함
+class HtmlWriter {
     private Writer writer;
 
     public HtmlWriter(Writer writer) {
@@ -29,6 +30,7 @@ public class HtmlWriter {
         writer.write("\">");
         writer.write(caption);
         writer.write("</a>");
+        writer.write("<br>");
     }
 
     public void mailto(String mailaddr, String username) throws IOException {
