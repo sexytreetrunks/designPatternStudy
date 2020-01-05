@@ -1,9 +1,9 @@
-package InterpreterPtn;
+package InterpreterPtn.interpreter;
 
-public class RepeatCommandNode extends CommandNode {
+public class RepeatCommandNode extends Node {
     private int number;
     private CommandListNode nodeList;
-    
+
     @Override
     public void parse(Context context) throws ParseException {
         context.skipToken("repeat");
@@ -16,5 +16,12 @@ public class RepeatCommandNode extends CommandNode {
     @Override
     public String toString() {
         return "[ repeat " + number + " " + nodeList + " ]";
+    }
+
+    @Override
+    public void execute() throws ExecuteException {
+        for (int i = 0; i < number; i ++) {
+            nodeList.execute();
+        }
     }
 }

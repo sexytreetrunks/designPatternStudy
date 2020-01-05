@@ -1,4 +1,4 @@
-package InterpreterPtn;
+package InterpreterPtn.interpreter;
 
 public class ParseException extends Exception {
     public ParseException(String msg) {

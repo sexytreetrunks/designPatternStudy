@@ -1,8 +1,8 @@
-package InterpreterPtn;
+package InterpreterPtn.interpreter;
 
 import java.util.ArrayList;
 
-public class CommandListNode extends Node {
+public class CommandListNode extends Node implements Executor {
     private ArrayList<CommandNode> nodeList = new ArrayList<>();
 
     @Override
@@ -24,6 +24,13 @@ public class CommandListNode extends Node {
     @Override
     public String toString() {
         return nodeList.toString();
+    }
+
+    @Override
+    public void execute() throws ExecuteException {
+        for (CommandNode n : nodeList) {
+            n.execute();
+        }
     }
 
 }

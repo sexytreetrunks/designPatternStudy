@@ -1,7 +1,7 @@
-package InterpreterPtn;
+package InterpreterPtn.interpreter;
 
 public class CommandNode extends Node{
-    private CommandNode m_node;
+    private Node m_node;
 
     @Override
     public void parse(Context context) throws ParseException {
@@ -17,5 +17,10 @@ public class CommandNode extends Node{
     @Override
     public String toString() {
         return m_node.toString();
+    }
+
+    @Override
+    public void execute() throws ExecuteException {
+        m_node.execute();
     }
 }

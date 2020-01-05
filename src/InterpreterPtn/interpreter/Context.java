@@ -1,8 +1,9 @@
-package InterpreterPtn;
+package InterpreterPtn.interpreter;
 
 import java.util.StringTokenizer;
 
-public class Context {
+public class Context implements ExecuterFactory {
+    private ExecuterFactory m_factory;
     private StringTokenizer tokenizer;
     private String currToken;
 
@@ -39,5 +40,14 @@ public class Context {
             throw new ParseException("Warning: " + e);
         }
         return number;
+    }
+    
+    public void setExecutorFactory(ExecuterFactory factory) {
+        m_factory = factory;
+    }
+
+    @Override
+    public Executor createExecuter(String name) {
+        return m_factory.createExecuter(name);
     }
 }
